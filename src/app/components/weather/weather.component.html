@@ -1,0 +1,58 @@
+<div class="split">
+  <!-- main weather -->
+  <div class="column1">
+    <div class="main-weather">
+      <div class="deg">{{ weather.main.temp }}&deg;</div>
+
+      <div class="date-place">
+        {{ weather.name }}
+        <div class="date">{{ newDate | date: "EEE, MMMM d, &lsquo;yy" }}</div>
+      </div>
+    </div>
+    <div class="forecast">
+      <div class="forecastlist" *ngFor="let item of forecast">
+        <div class="forecast-day">
+          {{ item.dt * 1000 | date: "EEE, MMM dd" }}
+        </div>
+        <div class="forecast-img">
+          <img src="{{ icon }}{{ item.weather[0].icon }}@2x.png" alt="" />
+        </div>
+        <div class="forecast-desc">{{ item.weather[0].description }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- search bar and weather detail -->
+  <div class="column2">
+    <div class="input-group">
+      <input
+        [(ngModel)]="inputLocation"
+        type="text"
+        placeholder="add another location"
+      />
+      <button (click)="getCity()"><mat-icon>search</mat-icon></button>
+    </div>
+    <div class="weather-detail">
+      <h3>Weather Detail</h3>
+      <p class="detail">
+        Temperature <span>{{ weather.main["temp"] }} &deg;C</span>
+      </p>
+      <p class="detail">
+        Description <span>{{ weather.weather[0].description }}</span>
+      </p>
+      <p class="detail">
+        Humidity <span>{{ weather.main["humidity"] }} %</span>
+      </p>
+      <p class="detail">
+        Wind <span>{{ weather.wind["speed"] }} mph</span>
+      </p>
+      <p class="detail">
+        Sunrise
+        <span>{{ weather.sys.sunrise * 1000 | date: "hh:mm aaa" }} </span>
+      </p>
+      <p class="detail">
+        Sunset
+        <span>{{ weather.sys.sunset * 1000 | date: "hh:mm aaa" }} </span>
+      </p>
+    </div>
+  </div>
+</div>
